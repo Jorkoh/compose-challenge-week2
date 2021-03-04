@@ -15,22 +15,22 @@
  */
 package com.example.androiddevchallenge
 
-import android.os.Bundle
-import androidx.activity.compose.setContent
-import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.remember
+import androidx.compose.material.MaterialTheme
+import androidx.compose.runtime.Composable
+import com.example.androiddevchallenge.ui.theme.TimerAppTheme
+import com.example.androiddevchallenge.ui.timer.TimerScreen
 import com.example.androiddevchallenge.ui.utils.LocalSysUiController
-import com.example.androiddevchallenge.ui.utils.SystemUiController
+import dev.chrisbanes.accompanist.insets.ProvideWindowInsets
 
-class MainActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            val systemUiController = remember { SystemUiController(window) }
-            CompositionLocalProvider(LocalSysUiController provides systemUiController) {
-                TimerApp()
-            }
+@Composable
+fun TimerApp() {
+    LocalSysUiController.current.setSystemBarsColor(
+        color = MaterialTheme.colors.surface.copy(alpha = 0.85f)
+    )
+
+    ProvideWindowInsets {
+        TimerAppTheme {
+            TimerScreen()
         }
     }
 }
